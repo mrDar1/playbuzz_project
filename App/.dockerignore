@@ -3,3 +3,4 @@ Dockerfile
 .dockerignore
 __pycache__/
 *.pyc
+test_app.py

@@ -22,3 +22,18 @@
 - Part 2: GitOps deployment. Argo CD Application and Kubernetes manifests with at least 2 replicas, readiness and liveness probes, resource requests and limits, and an Ingress reachable from the laptop. The plan says to consult before doing anything here.
 - Part 3 (optional): CI/CD.
 - Part 4 (bonus): README section on what to change to run on EKS in production.
+
+## 2026-10-21 - Part 3: GitHub Actions CI
+- What was done: added `.github/workflows/ci.yml`. On push/PR to main: ruff lint of `App/`, Docker build, smoke test (`/healthz` and `/`). On push to main only: log in to Docker Hub and push `yuval222/playbuzz_project` tagged `latest` and the git SHA.
+- Files: `.github/workflows/ci.yml`, `progress.md`
+- Notes: the repo has no unit tests, so the smoke test stands in for them. Requires repo secrets `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`. Workflow has not been run. `Deploy/app/deployment.yaml` still pins `1.0.0`, which CI does not push; follow-up: switch it to a SHA tag or push a version tag.
+
+## 2026-10-21 - CI follow-ups: tests and image tag fix
+- What was done: added `App/test_app.py` (3 unittest tests: `/healthz`, `/`, 404) and a CI "Unit tests" step. Added an `update-manifest` job that, after a push to main, rewrites the image tag in `Deploy/app/deployment.yaml` to the commit SHA and commits it with `[skip ci]`, so Argo CD deploys what CI pushed. Changed the placeholder tag `1.0.0` to `latest` in the manifest.
+- Files: `App/test_app.py`, `App/.dockerignore`, `.github/workflows/ci.yml`, `Deploy/app/deployment.yaml`
+- Notes: tests pass locally. Workflow not run yet. The bot commit to main needs "Workflow permissions: read and write" if the repo setting is read-only, and fails if branch protection blocks pushes.
+
+## 2026-10-21 - Full local run check
+- What was done: ran unit tests (3/3 pass), built the Docker image and ran it (`/healthz` 200, `/` renders, unknown path 404, container runs as uid 10001), rendered `Deploy/app` with kustomize (ok), `terraform validate` (valid).
+- Files: `progress.md`
+- Notes: not verified: Kubernetes/Argo CD deploy (kube context `dar-test` exists but API server at 127.0.0.1:50869 refuses connections, cluster is stopped) and the GitHub Actions workflow (never run).

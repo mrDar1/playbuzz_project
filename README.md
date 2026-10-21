@@ -3,3 +3,4 @@ small Devops project, include:
 - use K8s,
 - Terraform,
 - ArgoCD
+- CI with GitHub Actions

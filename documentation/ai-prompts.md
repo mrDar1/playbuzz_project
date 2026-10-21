@@ -29,6 +29,10 @@ add Argo CD:
 - do nothing before consult 
 
 Part 3 (good to have): CI/CD
+create CI with GitHub Actions
+push artifact to dockerhub "yuval222/playbuzz_project"
+do nothing before consult 
+
 
 Part 4 - Bonus (only if time is left)
 In the README: what you’d change to run this on EKS in production
