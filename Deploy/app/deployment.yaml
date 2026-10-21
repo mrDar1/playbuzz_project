@@ -20,7 +20,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: web
-          image: docker.io/yuval222/playbuzz_project:latest
+          image: docker.io/yuval222/playbuzz_project:65428cbc2c6c2f547077b5e333489b27eb9fb6af
           ports:
             - name: http
               containerPort: 8080
