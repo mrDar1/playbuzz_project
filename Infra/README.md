@@ -108,3 +108,17 @@ terraform apply -var node_count=3 -var memory=3072
   behind a local port-forward/ingress. Not for production.
 - **State** is local (`terraform.tfstate`, git-ignored). Don't delete it before
   `terraform destroy`, or run `minikube delete -p dar-test` to clean up by hand.
+
+## Troubleshooting
+
+- **`Helm release error` / `cannot re-use a name that is still in use`** on
+  `apply`: a Helm install timed out or raced the cluster start and left a
+  `failed` release behind (seen once in testing; a re-run succeeded). Remove it
+  and re-apply:
+  ```sh
+  helm --kube-context dar-test list -A
+  helm --kube-context dar-test uninstall <name> -n <namespace>
+  terraform apply
+  ```
+- **Pods `Pending` / Docker killed**: not enough memory for 3 nodes. Raise
+  Docker Desktop's memory or use `-var memory=1536`.

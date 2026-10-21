@@ -24,10 +24,9 @@ installs Argo CD and an ingress controller.
 
 Part 2 - GitOps deployment
 add Argo CD:
-1. The app’s Kubernetes manifests live in your repo, and Argo CD syncs them.
-2. At least 2 replicas, readiness and liveness probes, and resource requests and limits.
-3. The app is exposed through an Ingress and opens in the browser on this laptop.
-
+- At least 2 replicas, readiness and liveness probes, and resource requests and limits.
+- The app is exposed through an Ingress and opens in the browser on this laptop.
+- do nothing before consult 
 
 Part 3 (good to have): CI/CD
 

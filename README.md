@@ -1,5 +1,5 @@
-small Devops project:
-website,
-use K8s,
-Terraform,
-ArgoCD
+small Devops project, include:
+- tiny demo website,
+- use K8s,
+- Terraform,
+- ArgoCD
